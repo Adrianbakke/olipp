@@ -32,3 +32,5 @@ manifest
 TODO
 tmp*
 *tmp
+
+/media/images

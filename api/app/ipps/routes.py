@@ -6,37 +6,36 @@ from app.ipps import bp
 from app.ipps.model import Model
 from app.ipps.forms import CreateIppForm
 import os
+import json
 
 
-@bp.route('/i')
-@bp.route('/ipps')
-@bp.route('/ipps_index')
+@bp.route('/api/i/ipps')
 def ipp_index():
     ipps = Ipp.query.all()
-    return {'ipps': ipps}
+    res = list()
+    for i in ipps:
+        res.append({'id': i.id, 'ippname': i.ippname})
+    return json.dumps(res)
 
 
-@bp.route('/i/<ippname>', methods=['GET', 'POST'])
-@login_required
-def ipp_page(ippname, model=None):
+@bp.route('/api/i/ipps/<ippname>', methods=['GET', 'POST'])
+# @login_required
+def ipp_page(ippname):
     if request.method == 'POST':
         model = Model(current_app)
     ipp = Ipp.query.filter_by(ippname=ippname).first_or_404()
-    return {'ipp': ipp, 'model': model}
+    return json.dumps({'ipp': ipp.ippname})
 
 
-@bp.route('/ipps/upload', methods=['GET', 'POST'])
+@bp.route('/api/i/upload', methods=['POST'])
 def upload():
-    print(current_app.config['UPLOADED_PATH'])
     if request.method == 'POST':
         for key, f in request.files.items():
-            if key.startswith('file'):
-                f.save(os.path.join(
-                    current_app.config['UPLOADED_PATH'],
-                    f.filename
-                    )
-                )
-    return redirect(url_for('ipps.ipp_create'))
+            f.save(os.path.join(
+                current_app.config['UPLOADED_PATH'],
+                f.filename
+            ))
+    return 'OK'
 
 
 @bp.route('/ipps/create-ipp', methods=['GET', 'POST'])

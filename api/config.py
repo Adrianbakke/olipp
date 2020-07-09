@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.flaskenv'))
@@ -17,7 +18,7 @@ class Config:
     USER_ENABLE_USERNAME = True  # Enable username authentication
     USER_REQUIRE_RETYPE_PASSWORD = False  # Simplify register form
     # paths
-    UPLOADED_PATH = os.path.join(basedir, 'tmp')
+    UPLOADED_PATH = os.path.join(basedir, 'media/images')
     MODELS_PATH = os.path.join(basedir, 'app/ipps/models')
     # dropzone
     DROPZONE_ALLOWED_FILE_TYPE = 'image'
