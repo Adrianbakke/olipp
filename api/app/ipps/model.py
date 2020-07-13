@@ -11,7 +11,7 @@ class Model:
     def predict_season(self):
         learn = load_learner(self.path_to_models, self.model_filename)
         cats = learn.data.classes
-        imgs = [open_image(img_path) for img_path in path_to_imgs.ls()]
+        imgs = [open_image(img_path) for img_path in self.path_to_imgs.ls()]
         preds = [cats[learn.predict(img)[1]] for img in imgs]
-        self.result = [(str(i), p) for i, p in zip(path_to_imgs.ls(), preds)]
+        self.result = [{str(i): p} for i, p in zip(self.path_to_imgs.ls(), preds)]
         return self.result

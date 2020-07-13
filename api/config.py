@@ -18,7 +18,7 @@ class Config:
     USER_ENABLE_USERNAME = True  # Enable username authentication
     USER_REQUIRE_RETYPE_PASSWORD = False  # Simplify register form
     # paths
-    UPLOADED_PATH = os.path.join(basedir, 'media/images')
+    UPLOADED_PATH = Path(basedir).parent/'public'/'media'/'images'
     MODELS_PATH = os.path.join(basedir, 'app/ipps/models')
     # dropzone
     DROPZONE_ALLOWED_FILE_TYPE = 'image'

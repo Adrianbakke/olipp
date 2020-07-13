@@ -23,7 +23,7 @@ class Ipp extends React.Component {
           <Link to={p}>{ippname}</Link>
         </p>
       </div>
-    );
+    )
   }
 }
 
