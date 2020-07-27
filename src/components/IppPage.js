@@ -13,8 +13,14 @@ class IppPage extends React.Component {
       ipp: null,
       model: [],
     };
+    this.thumbsContainer = {
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginTop: 16
+    };
   }
-  
+
   componentDidMount() {
     const p = '/api/i/ipps/' + this.props.match.params.id;
     axios.get(p).then(res => {
@@ -40,18 +46,22 @@ class IppPage extends React.Component {
         <Row style={{ margin: '30px' }}>
           <Col>
             <Button variant="primary"
-                    size="lg"
-                    onClick={this.callModel}>
+              size="lg"
+              onClick={this.callModel}>
               Run model
             </Button>
           </Col>
         </Row>
         <Row style={{ margin: '30px' }}>
-        {
-          this.state.model.map(res =>
-            <Result res={res}/>
-          )
-        }
+          <section className="container">
+            <aside style={this.thumbsContainer}>
+              {
+                this.state.model.map(res =>
+                  <Result res={res} />
+                )
+              }
+            </aside>
+          </section>
         </Row>
       </Container>
     )
@@ -64,7 +74,7 @@ function Result(props) {
 
   const img = {
     display: 'block',
-    width: 'auto',
+    width: '100%',
     height: '100%'
   };
 
@@ -97,12 +107,12 @@ function Result(props) {
       </div>
     </div >
   )
-  
+
   return (
-      <Col>
-        {thumbs}
-        {props.res[key]}
-      </Col>
+    <div style={{ textAlign: 'center'}}>
+      {thumbs}
+      <p>{props.res[key]}</p>
+    </div>
   )
 }
 

@@ -16,7 +16,6 @@ function DropzoneWithPreviews(props) {
       })));
       const req = request.post('/api/i/upload');
       acceptedFiles.forEach(file => {
-        console.log(file);
         req.attach(file.name, file);
       });
       req.end();
@@ -80,7 +79,7 @@ const thumbInner = {
 
 const img = {
   display: 'block',
-  width: 'auto',
+  width: '100%',
   height: '100%'
 };
 
